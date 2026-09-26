@@ -1,0 +1,512 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Bhai 😂</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #dce8ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    padding: 30px 20px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 5;
+}
+
+h1 {
+    color: #ff4f81;
+}
+
+.question {
+    font-size: 21px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.emoji {
+    font-size: 55px;
+}
+
+button {
+    border: none;
+    padding: 14px 23px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+}
+
+.yes {
+    background: #ff5c8a;
+    color: white;
+}
+
+.no {
+    background: #eeeeee;
+    color: #222;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Moving buttons */
+.moving {
+    position: fixed !important;
+    z-index: 100;
+    margin: 0 !important;
+    transition: left 0.25s ease, top 0.25s ease;
+}
+
+/* Timer */
+.timer {
+    margin-top: 15px;
+    color: #ff4f81;
+    font-size: 14px;
+}
+
+/* Final image */
+.final-image {
+    width: 100%;
+    max-width: 350px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 15px auto;
+    display: block;
+}
+
+/* Floating emojis */
+.floating {
+    position: fixed;
+    bottom: -40px;
+    font-size: 25px;
+    pointer-events: none;
+    animation: floatUp 5s linear forwards;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- START -->
+    <div id="start">
+
+        <div class="emoji">👀😂</div>
+
+        <h1>Oyee Bhai!</h1>
+
+        <p class="question">
+            Tere liye kuch important questions hain 😤
+        </p>
+
+        <p>
+            Honestly answer dena... cheating allowed nahi hai 😎
+        </p>
+
+        <button class="yes" onclick="startGame()">
+            Chalo 😎
+        </button>
+
+    </div>
+
+
+    <!-- QUESTION 1 -->
+    <div id="q1" class="hidden">
+
+        <div class="emoji">🤔</div>
+
+        <h1>Question 1</h1>
+
+        <p class="question">
+            Kya main achhi behen hoon? 👀
+        </p>
+
+        <button class="yes" id="yes1">
+            Haan 😌
+        </button>
+
+        <button class="no" id="no1">
+            Nahi 😂
+        </button>
+
+        <div id="timer1" class="timer"></div>
+
+    </div>
+
+
+    <!-- QUESTION 2 -->
+    <div id="q2" class="hidden">
+
+        <div class="emoji">🍕😂</div>
+
+        <h1>Question 2</h1>
+
+        <p class="question">
+            Kya tu mujhe treat dega? 😤
+        </p>
+
+        <button class="yes" id="yes2">
+            Haan 🍕
+        </button>
+
+        <button class="no" id="no2">
+            Nahi 😂
+        </button>
+
+        <div id="timer2" class="timer"></div>
+
+    </div>
+
+
+    <!-- QUESTION 3 -->
+    <div id="q3" class="hidden">
+
+        <div class="emoji">👑😂</div>
+
+        <h1>Last Question 😈</h1>
+
+        <p class="question">
+            Kya main duniya ki best behen hoon? 😌
+        </p>
+
+        <button class="yes" id="yes3">
+            Obviously 😎
+        </button>
+
+        <button class="no" id="no3">
+            Bilkul nahi 😂
+        </button>
+
+        <div id="timer3" class="timer"></div>
+
+    </div>
+
+
+    <!-- FINAL -->
+    <div id="final" class="hidden">
+
+        <div class="emoji">🏆😂💗</div>
+
+        <h1>Congratulations! 😂</h1>
+
+        <!-- APNI IMAGE YAHAN LAGAO -->
+        <img
+            src="bhai.jpg"
+            alt="Favourite memory"
+            class="final-image"
+        >
+
+        <p class="question">
+            Tum officially...
+        </p>
+
+        <p>
+            🏆 <b>BEST BHAI</b> 🏆
+        </p>
+
+        <p>
+            Ab treat dena compulsory hai 😤🍕😂
+        </p>
+
+        <p>
+            Love you bhai 💗😂
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   START
+========================= */
+
+function startGame() {
+
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("q1").classList.remove("hidden");
+
+    moveFor7Seconds(
+        ["yes1", "no1"],
+        "timer1"
+    );
+}
+
+
+/* =========================
+   QUESTION 2
+========================= */
+
+function nextQ2() {
+
+    document.getElementById("q1").classList.add("hidden");
+    document.getElementById("q2").classList.remove("hidden");
+
+    moveFor7Seconds(
+        ["yes2", "no2"],
+        "timer2"
+    );
+}
+
+
+/* =========================
+   QUESTION 3
+========================= */
+
+function nextQ3() {
+
+    document.getElementById("q2").classList.add("hidden");
+    document.getElementById("q3").classList.remove("hidden");
+
+    moveFor7Seconds(
+        ["yes3", "no3"],
+        "timer3"
+    );
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+function showFinal() {
+
+    document.getElementById("q3").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+
+}
+
+
+/* =========================
+   MOVE FOR EXACTLY 7 SEC
+========================= */
+
+function moveFor7Seconds(buttonIds, timerId) {
+
+    const buttons = buttonIds.map(id =>
+        document.getElementById(id)
+    );
+
+    const timer = document.getElementById(timerId);
+
+    /*
+       Buttons ko moving mode mein daalo
+    */
+
+    buttons.forEach(button => {
+
+        button.classList.add("moving");
+
+        moveButton(button);
+
+    });
+
+
+    let startTime = Date.now();
+
+
+    /*
+       Har 300ms mein new random position
+    */
+
+    const movement = setInterval(() => {
+
+        const elapsed =
+            (Date.now() - startTime) / 1000;
+
+        if (elapsed >= 7) {
+
+            clearInterval(movement);
+
+            /*
+               IMPORTANT:
+               Yahan buttons ki current position
+               bilkul same rahegi.
+               Position reset nahi hogi.
+            */
+
+            buttons.forEach(button => {
+                button.classList.remove("moving");
+            });
+
+            timer.innerText =
+                "Ab answer choose karo 😌👇";
+
+            return;
+        }
+
+
+        buttons.forEach(button => {
+            moveButton(button);
+        });
+
+
+        const remaining =
+            Math.ceil(7 - elapsed);
+
+        timer.innerText =
+            "Options bhaag rahe hain 😂 " +
+            remaining + " sec";
+
+    }, 300);
+}
+
+
+/* =========================
+   RANDOM FULL SCREEN POSITION
+========================= */
+
+function moveButton(button) {
+
+    const padding = 15;
+
+    const buttonWidth =
+        button.offsetWidth;
+
+    const buttonHeight =
+        button.offsetHeight;
+
+
+    const maxX =
+        window.innerWidth -
+        buttonWidth -
+        padding;
+
+    const maxY =
+        window.innerHeight -
+        buttonHeight -
+        padding;
+
+
+    const x =
+        padding +
+        Math.random() * Math.max(0, maxX - padding);
+
+    const y =
+        padding +
+        Math.random() * Math.max(0, maxY - padding);
+
+
+    button.style.left = x + "px";
+    button.style.top = y + "px";
+}
+
+
+/* =========================
+   BUTTON CLICKS
+========================= */
+
+/*
+   7 sec movement complete hone ke baad
+   buttons click karke next question jayega.
+*/
+
+document.getElementById("yes1").onclick = nextQ2;
+document.getElementById("no1").onclick = nextQ2;
+
+document.getElementById("yes2").onclick = nextQ3;
+document.getElementById("no2").onclick = nextQ3;
+
+document.getElementById("yes3").onclick = showFinal;
+document.getElementById("no3").onclick = showFinal;
+
+
+/* =========================
+   FLOATING EMOJIS
+========================= */
+
+function createEmoji() {
+
+    const emojis = [
+        "😂",
+        "💗",
+        "✨",
+        "🤣",
+        "😎",
+        "⭐",
+        "🍕"
+    ];
+
+
+    const emoji =
+        document.createElement("div");
+
+    emoji.className = "floating";
+
+    emoji.innerText =
+        emojis[
+            Math.floor(
+                Math.random() * emojis.length
+            )
+        ];
+
+
+    emoji.style.left =
+        Math.random() * 100 + "vw";
+
+
+    emoji.style.animationDuration =
+        (3 + Math.random() * 3) + "s";
+
+
+    document.body.appendChild(emoji);
+
+
+    setTimeout(() => {
+        emoji.remove();
+    }, 6500);
+}
+
+
+setInterval(createEmoji, 600);
+
+</script>
+
+</body>
+</html>
+```
